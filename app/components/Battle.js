@@ -11,7 +11,7 @@ import { ThemeConsumer } from '../contexts/theme';
 
 const Instructions = () => (
   <ThemeConsumer>
-    {({ theme }) => (
+    {theme => (
       <div className="instructions-container">
         <h1 className="center-text header-sm">Instructions</h1>
         <ol className="container-sm grid center-text battle-instructions">
@@ -68,7 +68,7 @@ class PlayerInput extends React.Component {
     const { label } = this.props;
     return (
       <ThemeConsumer>
-        {({ theme }) => (
+        {theme => (
           <form className="column player" onSubmit={this.handleSubmit}>
             {/* eslint-disable-next-line jsx-a11y/label-has-for */}
             <label htmlFor="username" className="player-label">
@@ -106,7 +106,7 @@ PlayerInput.propTypes = {
 
 const PlayerPreview = ({ username, onReset, label }) => (
   <ThemeConsumer>
-    {({ theme }) => (
+    {theme => (
       <div className="column player">
         <h3 className="player-label">{label}</h3>
         <div className={`row bg-${theme}`}>
