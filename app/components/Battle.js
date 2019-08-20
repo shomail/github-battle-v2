@@ -45,58 +45,43 @@ const Instructions = () => (
   </ThemeConsumer>
 );
 
-class PlayerInput extends React.Component {
-  state = {
-    username: '',
-  };
+function PlayerInput({ onSubmit, label }) {
+  const [username, setusername] = React.useState('');
+  const theme = React.useContext(ThemeContext);
 
-  handleSubmit = e => {
-    const { username } = this.state;
-    const { onSubmit } = this.props;
+  const handleSubmit = e => {
     e.preventDefault();
     onSubmit(username);
   };
 
-  handleChange = e => {
-    this.setState({
-      username: e.target.value,
-    });
-  };
+  const handleChange = e => setusername(e.target.value);
 
-  render() {
-    const { username } = this.state;
-    const { label } = this.props;
-    return (
-      <ThemeConsumer>
-        {theme => (
-          <form className="column player" onSubmit={this.handleSubmit}>
-            {/* eslint-disable-next-line jsx-a11y/label-has-for */}
-            <label htmlFor="username" className="player-label">
-              {label}
-            </label>
-            <div className="row player-inputs">
-              <input
-                type="text"
-                id="username"
-                className={`input-${theme}`}
-                placeholder="Github Username"
-                autoComplete="off"
-                value={username}
-                onChange={this.handleChange}
-              />
-              <button
-                type="submit"
-                className={`btn ${theme === 'dark' ? 'light' : 'dark'}-btn`}
-                disabled={!username}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        )}
-      </ThemeConsumer>
-    );
-  }
+  return (
+    <form className="column player" onSubmit={handleSubmit}>
+      {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+      <label htmlFor="username" className="player-label">
+        {label}
+      </label>
+      <div className="row player-inputs">
+        <input
+          type="text"
+          id="username"
+          className={`input-${theme}`}
+          placeholder="Github Username"
+          autoComplete="off"
+          value={username}
+          onChange={handleChange}
+        />
+        <button
+          type="submit"
+          className={`btn ${theme === 'dark' ? 'light' : 'dark'}-btn`}
+          disabled={!username}
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  );
 }
 
 PlayerInput.propTypes = {
